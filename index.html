@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Traiteur Sultan des Saveurs, traiteur et restaurant à Nîmes</title>
+<meta name="description" content="Traiteur et restaurant au 18 rue Vincent Faïta, Nîmes : couscous, tajines, msemen. Sur place ou à emporter, tous les jours de 8h à 22h.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Traiteur Sultan des Saveurs, traiteur et restaurant à Nîmes">
+<meta property="og:description" content="Couscous, tajines, msemen et meloui, en salle ou à emporter. Tous les jours de 8h à 22h, 18 rue Vincent Faïta à Nîmes.">
+<meta name="theme-color" content="#9a3b1b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 48'%3E%3Cpath d='M3 47V21a17 17 0 0 1 34 0v26z' fill='%239a3b1b'/%3E%3Ctext x='20' y='39' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='24' fill='%23fff8ee'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,400&amp;family=Figtree:wght@400;600&amp;display=swap">
+<style>
+/* ──────────────────────────────────────────────────────────────────────────
+   SULTAN DES SAVEURS · design decisions
+   Palette  — taken from the shop and the food. --ink is the chocolate-black of
+              the storefront sign, --brand the terracotta of the clay tagine on
+              that sign, --accent the saffron/orange-juice gold of the breakfast
+              tray, --bg the semolina cream of couscous and the paper menu.
+              Terracotta for action, saffron only on the dark band.
+   Type     — Fraunces 600 (soft, warm display serif, a nod to the Roman capitals
+              on the sign) + Fraunces italic 400 for customers' words.
+              Figtree 400/600 for body and UI: plain, legible on a phone.
+   Hero     — framed photo + oversized name: the catering trays inside a round
+              arch (the doorway motif of their menu), slow Ken Burns.
+   Rhythm   — cream hero → proof (giant 5,0 + swipeable quotes) → "la table":
+              two asymmetric photo/text pairs bleeding off opposite edges →
+              ONE strong colour move: the chocolate traiteur band with the three
+              bread names set huge → hours + map → giant phone number → footer.
+   ────────────────────────────────────────────────────────────────────────── */
+:root{
+  --bg:#f6eee2; --surface:#fffaf3; --ink:#2a1c16; --ink-soft:#5f4b3f;
+  --brand:#9a3b1b; --brand-ink:#fff8ee; --accent:#e6a845; --line:#e2d3bf;
+  --star:#b06f12; --ok:#3d6b34; --on-dark:#f6eee2; --on-dark-soft:#c9bba7;
+
+  --font-display:"Fraunces", Georgia, "Times New Roman", serif;
+  --font-body:"Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --step--1:clamp(.875rem, .84rem + .15vw, .9375rem);
+  --step-0:clamp(1rem, .96rem + .2vw, 1.125rem);
+  --step-1:clamp(1.1875rem, 1.1rem + .4vw, 1.4rem);
+  --step-2:clamp(1.4rem, 1.25rem + .75vw, 1.9rem);
+  --step-3:clamp(1.75rem, 1.45rem + 1.4vw, 2.75rem);
+  --step-4:clamp(2.15rem, 1.7rem + 2.3vw, 3.75rem);
+  --step-5:clamp(3rem, 2.1rem + 4.4vw, 6.4rem);
+
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:24px;
+  --space-6:32px; --space-7:48px; --space-8:64px; --space-9:96px;
+  --section:clamp(56px, 10vw, 128px);
+  --gutter:clamp(16px, 5vw, 40px);
+  --container:1200px;
+
+  --r-1:8px; --r-2:16px; --r-3:28px;
+  --sh-1:0 1px 2px rgb(42 28 22 / .06), 0 3px 8px rgb(42 28 22 / .06);
+  --sh-2:0 2px 4px rgb(42 28 22 / .05), 0 12px 28px -8px rgb(42 28 22 / .2);
+  --sh-3:0 6px 12px rgb(42 28 22 / .06), 0 32px 64px -16px rgb(42 28 22 / .34);
+  --ease:cubic-bezier(.2,.7,.2,1);
+
+  --header-h:64px; --bar-h:64px;
+}
+
+/* Base */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--step-0);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--bar-h) + env(safe-area-inset-bottom))}
+html.menu-open,html.menu-open body{overflow:hidden}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance;font-optical-sizing:auto}
+p{margin:0;text-wrap:pretty}
+a{color:inherit}
+:focus-visible{outline:2.5px solid var(--brand);outline-offset:3px;border-radius:4px}
+.band :focus-visible,.site-footer :focus-visible,.action-bar :focus-visible{outline-color:var(--accent)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.i-star{width:16px;height:16px;fill:currentColor;stroke:none}
+
+.skip{position:absolute;left:var(--space-4);top:var(--space-2);z-index:100;display:inline-flex;align-items:center;min-height:48px;padding:0 20px;border-radius:999px;background:var(--ink);color:var(--on-dark);font-weight:600;text-decoration:none;transform:translateY(-160%);transition:transform .2s var(--ease)}
+.skip:focus{transform:none}
+
+.container{width:100%;max-width:calc(var(--container) + 2 * var(--gutter));margin-inline:auto;padding-inline:var(--gutter)}
+section[id]{scroll-margin-top:calc(var(--header-h) + 8px)}
+.section{padding-block:var(--section)}
+.kicker{display:flex;align-items:center;gap:10px;font-size:var(--step--1);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+.kicker::before{content:"";width:28px;height:1.5px;background:currentColor}
+.lede{font-size:var(--step-1);line-height:1.5;color:var(--ink-soft);max-width:40ch}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;border:1.5px solid transparent;font:600 var(--step-0)/1.1 var(--font-body);text-decoration:none;text-align:center;cursor:pointer;transition:transform .25s var(--ease),background-color .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease)}
+.btn:active{transform:translateY(1px) scale(.985)}
+.btn-primary{background:var(--brand);color:var(--brand-ink);box-shadow:var(--sh-2)}
+.btn-primary:hover{background:color-mix(in srgb,var(--brand) 86%,#000)}
+.btn-ghost{border-color:color-mix(in srgb,var(--ink) 35%,transparent);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.btn-gold{background:var(--accent);color:var(--ink)}
+.btn-gold:hover{background:color-mix(in srgb,var(--accent) 85%,#fff)}
+.btn-line-light{border-color:rgb(246 238 226 / .45);color:var(--on-dark)}
+.btn-line-light:hover{border-color:var(--on-dark);background:var(--on-dark);color:var(--ink)}
+.only-wide{display:none}
+@media (min-width:640px){.only-wide{display:inline}}
+
+/* Header */
+.site-header{position:sticky;top:0;z-index:50;background:var(--bg);transition:box-shadow .3s var(--ease)}
+.site-header.is-scrolled{box-shadow:0 1px 0 var(--line),0 10px 24px -18px rgb(42 28 22 / .35)}
+.header-inner{display:flex;align-items:center;gap:var(--space-3);height:var(--header-h)}
+.brand{display:inline-flex;align-items:center;gap:12px;min-height:48px;margin-right:auto;text-decoration:none}
+.brand-mark{width:30px;height:36px;flex:none}
+.brand-mark path:first-child{fill:var(--brand)}
+.brand-mark path+path{fill:none;stroke:var(--accent);stroke-width:1.4}
+.brand-mark text{fill:var(--brand-ink);font-family:var(--font-display);font-weight:600}
+.brand-name{display:block;font-family:var(--font-display);font-weight:600;font-size:1.125rem;line-height:1;letter-spacing:-.01em}
+.brand-sub{display:block;margin-top:5px;font-size:.75rem;line-height:1;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.header-cta{display:none}
+.menu-toggle{display:inline-grid;place-items:center;width:48px;height:48px;margin-right:-8px;padding:0;border:0;border-radius:999px;background:none;color:var(--ink);cursor:pointer}
+.menu-toggle span{display:block;width:22px;height:1.75px;background:currentColor;border-radius:2px;transition:transform .3s var(--ease),opacity .2s var(--ease);grid-area:1/1}
+.menu-toggle span:nth-child(1){transform:translateY(-7px)}
+.menu-toggle span:nth-child(3){transform:translateY(7px)}
+.menu-open .menu-toggle span:nth-child(1){transform:rotate(45deg)}
+.menu-open .menu-toggle span:nth-child(2){opacity:0}
+.menu-open .menu-toggle span:nth-child(3){transform:rotate(-45deg)}
+
+.nav{position:fixed;inset:var(--header-h) 0 0 0;z-index:49;display:flex;flex-direction:column;gap:var(--space-6);padding:var(--space-5) var(--gutter) calc(var(--bar-h) + var(--space-6) + env(safe-area-inset-bottom));background:var(--bg);overflow-y:auto;visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .3s var(--ease),transform .3s var(--ease),visibility 0s linear .3s}
+.menu-open .nav{visibility:visible;opacity:1;transform:none;transition-delay:0s}
+.nav ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.nav li a{display:flex;align-items:center;justify-content:space-between;min-height:64px;border-bottom:1px solid var(--line);font-family:var(--font-display);font-weight:600;font-size:var(--step-3);letter-spacing:-.02em;text-decoration:none}
+.nav li a::after{content:"";width:10px;height:10px;border-top:1.75px solid var(--brand);border-right:1.75px solid var(--brand);transform:rotate(45deg)}
+.nav-foot{display:grid;gap:var(--space-4)}
+.nav-foot p{color:var(--ink-soft)}
+
+@media (min-width:768px){
+  body{padding-bottom:0}
+  .header-cta{display:inline-flex;min-height:44px;padding:0 18px;font-size:var(--step--1)}
+}
+@media (min-width:960px){
+  :root{--header-h:76px}
+  .menu-toggle{display:none}
+  .nav{position:static;z-index:auto;flex-direction:row;padding:0;background:none;overflow:visible;visibility:visible;opacity:1;transform:none;transition:none}
+  .nav ul{display:flex;gap:var(--space-1);border:0}
+  .nav li a{min-height:44px;padding:0 14px;border:0;border-radius:999px;font:600 var(--step--1)/1 var(--font-body);letter-spacing:0;color:var(--ink-soft);transition:color .2s var(--ease),background-color .2s var(--ease)}
+  .nav li a::after{display:none}
+  .nav li a:hover{color:var(--ink);background:var(--surface)}
+  .nav-foot{display:none}
+  .header-inner{gap:var(--space-5)}
+}
+
+/* Hero */
+.hero{padding-block:var(--space-6) var(--space-8);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-7)}
+.hero-title{margin-top:var(--space-4);font-size:var(--step-5);line-height:.96;letter-spacing:-.04em}
+.hero-title em{display:inline-block;font-style:italic;font-weight:400;color:var(--brand);letter-spacing:-.03em;padding-right:.08em}
+.hero .lede{margin-top:var(--space-5);max-width:36ch}
+.hero-meta{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-3);margin-top:var(--space-5)}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.9375rem;line-height:1.2;text-decoration:none;color:var(--ink)}
+a.chip{transition:border-color .2s var(--ease)}
+a.chip:hover{border-color:var(--brand)}
+.chip strong{font-weight:600}
+.stars{display:inline-flex;gap:2px;color:var(--star)}
+.open-badge .dot{width:9px;height:9px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px color-mix(in srgb,var(--brand) 18%,transparent)}
+.open-badge.is-open .dot{background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 18%,transparent)}
+.hero-ctas{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-5)}
+.hero-ctas .btn{padding:0 16px}
+
+.hero-media{position:relative;margin:0;width:min(88%,480px);justify-self:end}
+.hero-media::before{content:"";position:absolute;inset:-14px 14px 14px -14px;border:1.5px solid color-mix(in srgb,var(--brand) 55%,transparent);border-radius:50% 50% var(--r-2) var(--r-2) / 40% 40% var(--r-2) var(--r-2);pointer-events:none}
+.arch{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:50% 50% var(--r-2) var(--r-2) / 40% 40% var(--r-2) var(--r-2);background:var(--line);box-shadow:var(--sh-3)}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:50% 82%;transform-origin:50% 75%}
+.hero-media figcaption{position:absolute;left:calc(var(--space-6) * -1);bottom:var(--space-6);display:inline-flex;align-items:center;gap:10px;max-width:calc(100% + var(--space-4));padding:10px 16px;border-radius:999px;background:var(--surface);box-shadow:var(--sh-2);font-size:.9375rem;line-height:1.25;font-weight:600}
+.hero-media figcaption::before{content:"";width:8px;height:8px;flex:none;border-radius:50%;background:var(--accent)}
+@media (prefers-reduced-motion:no-preference){
+  .arch img{animation:kenburns 28s ease-in-out infinite alternate}
+}
+@keyframes kenburns{from{transform:scale(1.03)}to{transform:scale(1.16) translate(-1.5%,-1.5%)}}
+
+@media (min-width:640px){
+  .hero-ctas{display:flex;flex-wrap:wrap}
+  .hero-ctas .btn{padding:0 26px}
+}
+@media (min-width:768px){
+  .hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:var(--space-7)}
+  .hero-media{width:100%}
+}
+@media (min-width:960px){
+  .hero{padding-block:var(--space-8) var(--space-9)}
+  .hero-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:var(--space-8)}
+  .hero-media{width:min(100%,440px)}
+  .hero-title{font-size:clamp(5rem,8.4vw,8.25rem);line-height:.92}
+}
+
+/* Proof */
+.proof{background:var(--surface);border-block:1px solid var(--line)}
+.proof-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-7)}
+.proof h2{margin-top:var(--space-4);font-size:var(--step-4)}
+.score{display:flex;align-items:flex-end;gap:var(--space-5);margin-top:var(--space-6)}
+.score-num{font-family:var(--font-display);font-weight:600;font-size:clamp(5.5rem,24vw,10.5rem);line-height:.78;letter-spacing:-.06em;color:var(--brand)}
+.score-side{display:grid;gap:6px;padding-bottom:4px;color:var(--ink-soft)}
+.score-side .stars .i-star{width:20px;height:20px}
+.score-side strong{color:var(--ink);font-weight:600}
+.proof-link{margin-top:var(--space-6);display:inline-flex}
+
+.rail{margin-inline:calc(var(--gutter) * -1);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gutter);overscroll-behavior-x:contain;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail:focus-visible{outline-offset:-4px}
+.rail-track{display:flex;align-items:flex-start;gap:var(--space-4);margin:0;padding:var(--space-2) var(--gutter) var(--space-5);list-style:none}
+.review{flex:0 0 min(86%,420px);scroll-snap-align:start;display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-5);border:1px solid var(--line);border-radius:var(--r-2);background:var(--bg);box-shadow:var(--sh-1)}
+.review blockquote{margin:0;flex:1}
+.review blockquote p{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:var(--step-0);line-height:1.55}
+.review--lead blockquote p{font-size:var(--step-2);line-height:1.3;letter-spacing:-.01em}
+.review-by{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font-size:.9375rem;color:var(--ink-soft)}
+.review-by strong{color:var(--ink);font-weight:600;font-size:var(--step-0)}
+.rail-nav{display:flex;gap:var(--space-3)}
+.rail-btn{display:inline-grid;place-items:center;width:48px;height:48px;padding:0;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--ink) 30%,transparent);background:none;color:var(--ink);cursor:pointer;transition:background-color .2s var(--ease),color .2s var(--ease),opacity .2s var(--ease)}
+.rail-btn:hover:not(:disabled){background:var(--ink);color:var(--bg)}
+.rail-btn:disabled{opacity:.35;cursor:default}
+
+@media (min-width:960px){
+  .proof-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--space-9);align-items:start}
+  .proof-head{position:sticky;top:calc(var(--header-h) + var(--space-6))}
+  .rail{margin:0;overflow:visible}
+  .rail-track{flex-direction:column;gap:0;padding:0}
+  .review{display:grid;grid-template-columns:9.5rem minmax(0,1fr);grid-template-areas:"stars quote" "by quote";align-content:start;gap:var(--space-2) var(--space-6);padding:var(--space-6) 0;border:0;border-top:1px solid var(--line);border-radius:0;background:none;box-shadow:none}
+  .review:last-child{border-bottom:1px solid var(--line)}
+  .review .stars{grid-area:stars;padding-top:.4em}
+  .review blockquote{grid-area:quote}
+  .review-by{grid-area:by;flex-direction:column;gap:2px}
+  .rail-nav{display:none}
+}
+
+/* La table */
+.table-head{display:grid;gap:var(--space-4)}
+.table-head h2{font-size:var(--step-4);max-width:16ch}
+.feature{display:grid;gap:var(--space-5);margin-top:var(--space-8)}
+.feature-media{margin:0 0 0 calc(var(--gutter) * -1)}
+.feature-media img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 62%;border-radius:0 var(--r-3) var(--r-3) 0;box-shadow:var(--sh-2);background:var(--line)}
+.feature-media figcaption{margin-top:var(--space-3);padding-left:var(--gutter);font-size:.9375rem;color:var(--ink-soft)}
+.feature--rev .feature-media{margin:0 calc(var(--gutter) * -1) 0 0}
+.feature--rev .feature-media img{aspect-ratio:4/3;object-position:56% 50%;border-radius:var(--r-3) 0 0 var(--r-3)}
+.feature--rev .feature-media figcaption{padding-left:0}
+.feature-body{display:grid;gap:var(--space-4);align-content:start}
+.feature-tag{display:inline-flex;align-items:center;gap:8px;font-size:var(--step--1);font-weight:600;color:var(--brand);letter-spacing:.02em}
+.feature-body h3{font-size:var(--step-3)}
+.feature-body p{color:var(--ink-soft);max-width:44ch}
+.feature-num{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:var(--step-2);color:var(--brand);line-height:1}
+
+@media (min-width:640px){
+  .feature-media img{aspect-ratio:5/4}
+  .feature--rev .feature-media img{aspect-ratio:16/10}
+}
+@media (min-width:960px){
+  .table-head{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end;gap:var(--space-8)}
+  .feature{grid-template-columns:repeat(12,minmax(0,1fr));align-items:center;gap:var(--space-6);margin-top:var(--space-9)}
+  .feature-media{grid-column:1 / span 6;margin:0}
+  .feature-media img{aspect-ratio:4/5;border-radius:var(--r-3)}
+  .feature-media figcaption{padding-left:0}
+  .feature-body{grid-column:8 / span 5}
+  .feature--rev .feature-media{grid-column:6 / span 7;grid-row:1;margin:0}
+  .feature--rev .feature-media img{aspect-ratio:3/2;border-radius:var(--r-3)}
+  .feature--rev .feature-body{grid-column:1 / span 4;grid-row:1}
+}
+
+/* Traiteur band: the one strong colour move */
+.band{position:relative;overflow:hidden;background-color:var(--ink);color:var(--on-dark);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23e6a845' stroke-width='1' opacity='.13'%3E%3Crect x='29' y='29' width='30' height='30'/%3E%3Crect x='29' y='29' width='30' height='30' transform='rotate(45 44 44)'/%3E%3Cpath d='M0 44h23M65 44h23M44 0v23M44 65v23'/%3E%3C/g%3E%3C/svg%3E");background-size:88px 88px}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ink) 0%,transparent 30%,transparent 70%,var(--ink) 100%);pointer-events:none}
+.band .container{position:relative;z-index:1}
+.band-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-7)}
+.band .kicker{color:var(--accent)}
+.band h2{margin-top:var(--space-4);font-size:var(--step-4);color:var(--on-dark)}
+.band-copy p{margin-top:var(--space-5);color:var(--on-dark-soft);max-width:44ch}
+.band-ctas{display:grid;gap:var(--space-3);margin-top:var(--space-6)}
+@media (min-width:640px){.band-ctas{display:flex;flex-wrap:wrap}}
+.breads{margin:0;padding:0;list-style:none;font-family:var(--font-display);font-weight:600;font-size:clamp(3.5rem,17vw,9rem);line-height:.92;letter-spacing:-.045em;color:var(--on-dark)}
+.breads li:nth-child(2){padding-left:.55em;font-style:italic;font-weight:400;color:var(--accent)}
+.breads li:nth-child(3){padding-left:1.1em}
+.breads-note{margin-top:var(--space-3);font-size:.9375rem;color:var(--on-dark-soft)}
+.band-quote{margin:var(--space-6) 0 0;padding-left:var(--space-5);border-left:2px solid var(--accent);max-width:36ch}
+.band-quote blockquote{margin:0}
+.band-quote p{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:var(--step-2);line-height:1.3;color:var(--on-dark)}
+.band-quote figcaption{margin-top:var(--space-3);font-size:.9375rem;color:var(--on-dark-soft)}
+@media (min-width:960px){
+  .band-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--space-8);align-items:center}
+  .band-art{justify-self:end}
+}
+
+/* Hours + location */
+.visit-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-7)}
+.visit h2{margin-top:var(--space-4);font-size:var(--step-4);max-width:14ch}
+.visit .open-badge{margin-top:var(--space-5)}
+.hours{margin:var(--space-6) 0 0;border-top:1px solid var(--line)}
+.hours-row{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);min-height:52px;padding:0 var(--space-3);border-bottom:1px solid var(--line);transition:background-color .3s var(--ease)}
+.hours-row dt{display:flex;align-items:center;gap:10px;font-weight:600}
+.hours-row dd{margin:0;font-variant-numeric:tabular-nums;color:var(--ink-soft);white-space:nowrap}
+.hours-row.is-today{background:var(--surface);box-shadow:inset 3px 0 0 var(--brand)}
+.hours-row.is-today dd{color:var(--ink);font-weight:600}
+.today-tag{display:inline-flex;align-items:center;min-height:24px;padding:0 9px;border-radius:999px;background:var(--brand);color:var(--brand-ink);font-size:.75rem;font-weight:600;letter-spacing:.04em}
+.map{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:var(--r-3);background:var(--line);box-shadow:var(--sh-2)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.address{display:grid;gap:var(--space-4);margin-top:var(--space-5)}
+.address-line{display:flex;gap:12px;align-items:flex-start;font-size:var(--step-1);line-height:1.35}
+.address-line .i{margin-top:3px;color:var(--brand)}
+.address-ctas{display:grid;gap:var(--space-3)}
+@media (min-width:640px){.address-ctas{display:flex;flex-wrap:wrap}}
+@media (min-width:960px){
+  .visit-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--space-8);align-items:start}
+  .map{aspect-ratio:7/5}
+}
+
+/* Contact */
+.contact{background:var(--surface);border-top:1px solid var(--line)}
+.contact h2{margin-top:var(--space-4);font-size:var(--step-3);max-width:22ch}
+.phone-big{display:inline-block;margin-top:var(--space-5);font-family:var(--font-display);font-weight:600;font-size:clamp(2.35rem,11.5vw,10rem);line-height:1;letter-spacing:-.04em;white-space:nowrap;color:var(--brand);text-decoration:none;text-decoration-thickness:3px;text-underline-offset:.14em}
+.phone-big:hover{text-decoration-line:underline}
+.contact-copy{margin-top:var(--space-5);color:var(--ink-soft);max-width:52ch}
+.contact-ctas{display:grid;gap:var(--space-3);margin-top:var(--space-6)}
+@media (min-width:640px){.contact-ctas{display:flex;flex-wrap:wrap}}
+
+/* Footer */
+.site-footer{background:var(--ink);color:var(--on-dark-soft);padding-block:var(--space-8) var(--space-6);font-size:.9375rem}
+.footer-grid{display:grid;gap:var(--space-6)}
+.site-footer .brand{color:var(--on-dark)}
+.site-footer .brand-sub{color:var(--on-dark-soft)}
+.footer-col h3{font-family:var(--font-body);font-size:.8125rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--space-3)}
+.footer-col p{line-height:1.7}
+.footer-col a{color:var(--on-dark)}
+.footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-3);margin-top:var(--space-7);padding-top:var(--space-5);border-top:1px solid rgb(246 238 226 / .14)}
+@media (min-width:768px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+
+/* Sticky action bar (phones) */
+.action-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(3,1fr);padding-bottom:env(safe-area-inset-bottom);background:var(--ink);box-shadow:0 -10px 30px -14px rgb(42 28 22 / .5)}
+.action-bar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:var(--bar-h);color:var(--on-dark);font-size:.875rem;font-weight:600;text-decoration:none}
+.action-bar a+a{border-left:1px solid rgb(246 238 226 / .12)}
+.action-bar a.is-primary{background:var(--brand);color:var(--brand-ink)}
+@media (min-width:768px){.action-bar{display:none}}
+
+/* Reveal */
+.js [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js [data-reveal].is-in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js [data-reveal]{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Traiteur Sultan des Saveurs",
+  "telephone": "+33751210487",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "18 Rue Vincent Faïta",
+    "postalCode": "30000",
+    "addressLocality": "Nîmes",
+    "addressCountry": "FR"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 43.8413187, "longitude": 4.3669312 },
+  "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJX3m9T1ottBIR9-UC5jb53uM",
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "08:00",
+    "closes": "22:00"
+  }]
+}
+</script>
+<!--sf:preview--><meta name="robots" content="noindex, nofollow"><!--/sf:preview-->
+<!--sf:og--><meta property="og:image" content="https://traiteur-sultan-des-saveurs-nimes.aymenjallouli.dev/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:url" content="https://traiteur-sultan-des-saveurs-nimes.aymenjallouli.dev/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://traiteur-sultan-des-saveurs-nimes.aymenjallouli.dev/og.jpg"><!--/sf:og-->
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-sms" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><path d="M3 11 22 2l-9 19-2-8-8-2z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12.1a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-prev" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.5 2.94 5.96 6.56.95-4.75 4.63 1.12 6.54L12 17.5l-5.87 3.08 1.12-6.54L2.5 9.41l6.56-.95z"/></symbol>
+</svg>
+
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#top" aria-label="Sultan des Saveurs, retour en haut de page">
+      <svg class="brand-mark" viewBox="0 0 40 48" aria-hidden="true"><path d="M3 47V21a17 17 0 0 1 34 0v26z"/><path d="M8 47V22a12 12 0 0 1 24 0v25"/><text x="20" y="38" text-anchor="middle" font-size="21">S</text></svg>
+      <span><span class="brand-name">Sultan des Saveurs</span><span class="brand-sub">Traiteur · Nîmes</span></span>
+    </a>
+    <nav class="nav" id="menu" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#avis">Avis</a></li>
+        <li><a href="#table">La table</a></li>
+        <li><a href="#traiteur">Traiteur</a></li>
+        <li><a href="#horaires">Horaires &amp; accès</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-foot">
+        <a class="btn btn-primary" href="tel:+33751210487"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Appeler le 07 51 21 04 87</a>
+        <p>18 Rue Vincent Faïta, 30000 Nîmes<br>Tous les jours, 8h – 22h</p>
+      </div>
+    </nav>
+    <a class="btn btn-primary header-cta" href="tel:+33751210487"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>07 51 21 04 87</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="contenu">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">Traiteur &amp; restaurant</p>
+        <h1 class="hero-title" id="hero-title">Sultan <em>des</em><br>Saveurs</h1>
+        <p class="lede">Couscous, tajines, msemen et meloui, en salle ou à emporter. Tous les jours de 8h à 22h, au 18 rue Vincent Faïta, à Nîmes.</p>
+        <div class="hero-meta">
+          <a class="chip" href="https://www.google.com/maps/place/?q=place_id:ChIJX3m9T1ottBIR9-UC5jb53uM" target="_blank" rel="noopener" aria-label="Note Google : 5,0 sur 5, 13 avis. Voir les avis sur Google">
+            <span class="stars" aria-hidden="true"><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg></span>
+            <span><strong>5,0</strong> · 13 avis Google</span>
+          </a>
+          <p class="chip open-badge" data-open-badge hidden><span class="dot" aria-hidden="true"></span><span data-open-text></span></p>
+        </div>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="tel:+33751210487"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span>Appeler<span class="only-wide"> le 07 51 21 04 87</span></span></a>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=TRAITEUR%20SULTAN%20DES%20SAVEURS%2C%2018%20Rue%20Vincent%20Fa%C3%AFta%2C%2030000%20N%C3%AEmes" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-route"/></svg>Itinéraire</a>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <div class="arch">
+          <img src="assets/photos/photo-02.jpg" width="692" height="1600" fetchpriority="high" alt="Plateaux traiteur garnis de bouchées : cigares feuilletés, mini-pizzas aux olives, wraps, triangles feuilletés et mini-burgers">
+        </div>
+        <figcaption>Les plateaux traiteur</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="proof section" id="avis" aria-labelledby="avis-title">
+    <div class="container proof-grid">
+      <div class="proof-head" data-reveal>
+        <p class="kicker">Avis Google</p>
+        <h2 id="avis-title">Treize avis, cinq étoiles à chaque fois.</h2>
+        <div class="score">
+          <span class="score-num" aria-hidden="true">5,0</span>
+          <p class="score-side">
+            <span class="stars" aria-hidden="true"><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg></span>
+            <span class="sr-only">Note moyenne 5,0 sur 5,</span>
+            <span><strong><span data-count="13">13</span> avis</strong> sur Google</span>
+          </p>
+        </div>
+        <a class="btn btn-ghost proof-link" href="https://www.google.com/maps/place/?q=place_id:ChIJX3m9T1ottBIR9-UC5jb53uM" target="_blank" rel="noopener">Voir les 13 avis sur Google<svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
+      </div>
+
+      <div class="proof-reviews" data-reveal>
+        <div class="rail" tabindex="0" role="region" aria-label="Avis de clients, faire défiler horizontalement">
+          <ul class="rail-track">
+            <li class="review review--lead">
+              <span class="stars" role="img" aria-label="5 étoiles sur 5"><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg></span>
+              <blockquote><p>« Excellentissime,une variété de goût et de saveurs qui nous rappelle la nourriture du moyen orient. »</p></blockquote>
+              <p class="review-by"><strong>Rickyy</strong><time datetime="2026-08-23">août 2026</time></p>
+            </li>
+            <li class="review">
+              <span class="stars" role="img" aria-label="5 étoiles sur 5"><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg></span>
+              <blockquote><p>« Je suis passé mangé un couscous bœuf samedi 12/09/26 soir je me suis régalé, délicieux,bien chaud du début à la fin, toutes les saveurs traditionnels étaient bien présent dans le couscous.<br>À emporter ou sur place si vous voulez vous régaler bon appétit. »</p></blockquote>
+              <p class="review-by"><strong>L'univers D.</strong><time datetime="2026-09-12">septembre 2026</time></p>
+            </li>
+            <li class="review">
+              <span class="stars" role="img" aria-label="5 étoiles sur 5"><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg></span>
+              <blockquote><p>« Je suis passée un dimanche soir pour emporter à la dernière minute pour 6 personnes. J’ai été bien conseillé, nous avons pris des tajines différents. Avec le pain : msemen, meloui,matlou tout était très très bon frais et goûteux. Merci pour votre accueil et professionnalisme. »</p></blockquote>
+              <p class="review-by"><strong>ysabel M.</strong><time datetime="2026-09-07">septembre 2026</time></p>
+            </li>
+            <li class="review">
+              <span class="stars" role="img" aria-label="5 étoiles sur 5"><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg><svg class="i-star"><use href="#i-star"/></svg></span>
+              <blockquote><p>« Accueil chaleureux, c'était délicieux et gourmands<br>Je recommande »</p></blockquote>
+              <p class="review-by"><strong>Ingrid B.</strong><time datetime="2026-10-01">octobre 2026</time></p>
+            </li>
+          </ul>
+        </div>
+        <div class="rail-nav">
+          <button class="rail-btn" type="button" data-rail="prev" aria-label="Avis précédent"><svg class="i" aria-hidden="true"><use href="#i-prev"/></svg></button>
+          <button class="rail-btn" type="button" data-rail="next" aria-label="Avis suivant"><svg class="i" aria-hidden="true"><use href="#i-next"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="table" aria-labelledby="table-title">
+    <div class="container">
+      <div class="table-head" data-reveal>
+        <div>
+          <p class="kicker">La table</p>
+          <h2 id="table-title" style="margin-top:var(--space-4)">Du msemen le matin au couscous le soir.</h2>
+        </div>
+        <p class="lede">La salle ouvre à 8h et ferme à 22h, sept jours sur sept. Entre les deux, on s'y attable, on y commande, on repart avec.</p>
+      </div>
+
+      <article class="feature" data-reveal>
+        <figure class="feature-media">
+          <img src="assets/photos/photo-05.jpg" width="1200" height="1600" loading="lazy" decoding="async" alt="Plateau du matin servi en salle : msemen, œufs, olives noires, tomates cerises, concombre, thé à la menthe et jus d'orange">
+        </figure>
+        <div class="feature-body">
+          <span class="feature-num" aria-hidden="true">01</span>
+          <span class="feature-tag"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg>Dès 8h, tous les jours</span>
+          <h3>Le matin, en salle.</h3>
+          <p>Msemen plié sur le côté, œufs, olives noires, tomates cerises, concombre, un verre de thé à la menthe et un jus d'orange. Le tout sur un plateau, à une table de la salle.</p>
+        </div>
+      </article>
+
+      <article class="feature feature--rev" data-reveal>
+        <figure class="feature-media">
+          <img src="assets/photos/photo-01.jpg" width="1536" height="864" loading="lazy" decoding="async" alt="La devanture du Traiteur Sultan des Saveurs, 18 rue Vincent Faïta à Nîmes, porte ouverte sur la salle">
+          <figcaption>Au 18 rue Vincent Faïta : l'enseigne brune, la salle juste derrière.</figcaption>
+        </figure>
+        <div class="feature-body">
+          <span class="feature-num" aria-hidden="true">02</span>
+          <span class="feature-tag"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>Sur place ou à emporter</span>
+          <h3>Un couscous « bien chaud du début à la fin ».</h3>
+          <p>Couscous au bœuf, tajines, et les pains que les clients citent par leur nom : msemen, meloui, matlou. Installez-vous en salle ou repartez avec votre commande.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="band section" id="traiteur" aria-labelledby="traiteur-title">
+    <div class="container band-grid">
+      <div class="band-copy" data-reveal>
+        <p class="kicker">Traiteur</p>
+        <h2 id="traiteur-title">Six personnes, un dimanche soir, à la dernière minute.</h2>
+        <p>C'est une commande racontée dans un de nos avis Google : des tajines différents, les pains, et des conseils pour bien choisir. Pour une tablée, une fête ou des plateaux de bouchées, appelez et dites-nous combien vous serez.</p>
+        <div class="band-ctas">
+          <a class="btn btn-gold" href="tel:+33751210487"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Appeler pour commander</a>
+          <a class="btn btn-line-light" href="sms:+33751210487?&amp;body=Bonjour%2C%20je%20souhaiterais%20passer%20une%20commande%20chez%20Sultan%20des%20Saveurs.%20Pourriez-vous%20me%20rappeler%20%3F%20Merci."><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg>Envoyer un SMS</a>
+        </div>
+      </div>
+      <div class="band-art" data-reveal>
+        <ul class="breads" aria-label="Les trois pains cités dans cet avis">
+          <li>Msemen</li>
+          <li>Meloui</li>
+          <li>Matlou</li>
+        </ul>
+        <figure class="band-quote">
+          <blockquote><p>« …tout était très très bon frais et goûteux. »</p></blockquote>
+          <figcaption>ysabel M., avis Google, septembre 2026</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit section" id="horaires" aria-labelledby="horaires-title">
+    <div class="container visit-grid">
+      <div data-reveal>
+        <p class="kicker">Horaires &amp; accès</p>
+        <h2 id="horaires-title">Ouvert tous les jours, de 8h à 22h.</h2>
+        <p class="chip open-badge" data-open-badge hidden><span class="dot" aria-hidden="true"></span><span data-open-text></span></p>
+        <dl class="hours">
+          <div class="hours-row" data-day="lundi" data-hours="08:00–22:00"><dt>Lundi</dt><dd>8h – 22h</dd></div>
+          <div class="hours-row" data-day="mardi" data-hours="08:00–22:00"><dt>Mardi</dt><dd>8h – 22h</dd></div>
+          <div class="hours-row" data-day="mercredi" data-hours="08:00–22:00"><dt>Mercredi</dt><dd>8h – 22h</dd></div>
+          <div class="hours-row" data-day="jeudi" data-hours="08:00–22:00"><dt>Jeudi</dt><dd>8h – 22h</dd></div>
+          <div class="hours-row" data-day="vendredi" data-hours="08:00–22:00"><dt>Vendredi</dt><dd>8h – 22h</dd></div>
+          <div class="hours-row" data-day="samedi" data-hours="08:00–22:00"><dt>Samedi</dt><dd>8h – 22h</dd></div>
+          <div class="hours-row" data-day="dimanche" data-hours="08:00–22:00"><dt>Dimanche</dt><dd>8h – 22h</dd></div>
+        </dl>
+      </div>
+      <div data-reveal>
+        <div class="map">
+          <iframe src="https://www.google.com/maps?q=TRAITEUR%20SULTAN%20DES%20SAVEURS%2C%2018%20Rue%20Vincent%20Fa%C3%AFta%2C%2030000%20N%C3%AEmes&amp;output=embed&amp;hl=fr" title="Plan d'accès : Traiteur Sultan des Saveurs, 18 Rue Vincent Faïta à Nîmes" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <div class="address">
+          <p class="address-line"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><span>18 Rue Vincent Faïta<br>30000 Nîmes</span></p>
+          <div class="address-ctas">
+            <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=TRAITEUR%20SULTAN%20DES%20SAVEURS%2C%2018%20Rue%20Vincent%20Fa%C3%AFta%2C%2030000%20N%C3%AEmes" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-route"/></svg>Itinéraire</a>
+            <a class="btn btn-ghost" href="https://www.google.com/maps/place/?q=place_id:ChIJX3m9T1ottBIR9-UC5jb53uM" target="_blank" rel="noopener">Ouvrir dans Google Maps<svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact section" id="contact" aria-labelledby="contact-title">
+    <div class="container" data-reveal>
+      <p class="kicker">Contact</p>
+      <h2 id="contact-title">Une table, une commande à emporter, des plateaux : un seul numéro.</h2>
+      <a class="phone-big" href="tel:+33751210487" aria-label="Appeler le 07 51 21 04 87">07 51 21 04 87</a>
+      <p class="contact-copy">Appelez, ou écrivez par SMS au même numéro. Sur place : 18 Rue Vincent Faïta, 30000 Nîmes, tous les jours de 8h à 22h.</p>
+      <div class="contact-ctas">
+        <a class="btn btn-primary" href="tel:+33751210487"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Appeler</a>
+        <a class="btn btn-ghost" href="sms:+33751210487?&amp;body=Bonjour%2C%20je%20souhaiterais%20passer%20une%20commande%20chez%20Sultan%20des%20Saveurs.%20Pourriez-vous%20me%20rappeler%20%3F%20Merci."><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg>Envoyer un SMS</a>
+        <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=TRAITEUR%20SULTAN%20DES%20SAVEURS%2C%2018%20Rue%20Vincent%20Fa%C3%AFta%2C%2030000%20N%C3%AEmes" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-route"/></svg>Itinéraire</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a class="brand" href="#top" aria-label="Sultan des Saveurs, retour en haut de page">
+          <svg class="brand-mark" viewBox="0 0 40 48" aria-hidden="true"><path d="M3 47V21a17 17 0 0 1 34 0v26z"/><path d="M8 47V22a12 12 0 0 1 24 0v25"/><text x="20" y="38" text-anchor="middle" font-size="21">S</text></svg>
+          <span><span class="brand-name">Sultan des Saveurs</span><span class="brand-sub">Traiteur · Nîmes</span></span>
+        </a>
+      </div>
+      <div class="footer-col">
+        <h3>Adresse</h3>
+        <p>18 Rue Vincent Faïta<br>30000 Nîmes</p>
+      </div>
+      <div class="footer-col">
+        <h3>Horaires</h3>
+        <p>Tous les jours<br>8h – 22h</p>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <p><a href="tel:+33751210487">07 51 21 04 87</a><br><a href="https://www.google.com/maps/place/?q=place_id:ChIJX3m9T1ottBIR9-UC5jb53uM" target="_blank" rel="noopener">Avis Google</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span data-year></span> Traiteur Sultan des Saveurs</p>
+      <p>Couscous, tajines et pains, rue Vincent Faïta.</p>
+    </div>
+  </div>
+</footer>
+
+<nav class="action-bar" aria-label="Actions rapides">
+  <a class="is-primary" href="tel:+33751210487"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Appeler</a>
+  <a href="sms:+33751210487?&amp;body=Bonjour%2C%20je%20souhaiterais%20passer%20une%20commande%20chez%20Sultan%20des%20Saveurs.%20Pourriez-vous%20me%20rappeler%20%3F%20Merci."><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg>SMS</a>
+  <a href="https://www.google.com/maps/dir/?api=1&amp;destination=TRAITEUR%20SULTAN%20DES%20SAVEURS%2C%2018%20Rue%20Vincent%20Fa%C3%AFta%2C%2030000%20N%C3%AEmes" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-route"/></svg>Itinéraire</a>
+</nav>
+
+<script>
+(() => {
+  const d = document, root = d.documentElement;
+  root.classList.add('js');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  d.querySelectorAll('[data-year]').forEach(n => { n.textContent = new Date().getFullYear(); });
+
+  // Header shadow once the page scrolls
+  const header = d.querySelector('.site-header');
+  const onScroll = () => header.classList.toggle('is-scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Mobile menu
+  const btn = d.querySelector('.menu-toggle'), nav = d.getElementById('menu');
+  const setMenu = open => {
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    root.classList.toggle('menu-open', open);
+  };
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    setMenu(open);
+    if (open) setTimeout(() => nav.querySelector('a').focus(), 60);
+  });
+  nav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  d.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && root.classList.contains('menu-open')) { setMenu(false); btn.focus(); }
+  });
+  matchMedia('(min-width: 960px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+
+  // Hours: today + live open/closed badge (Paris time)
+  const DAYS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+  const rows = [...d.querySelectorAll('[data-day]')];
+  const week = {};
+  rows.forEach(r => { week[r.dataset.day] = r.dataset.hours; });
+  const parse = s => {
+    s = (s || '').toLowerCase().trim();
+    if (!s || /ferm/.test(s)) return [];
+    if (/24\s*h|24\/24|24 heures/.test(s)) return [[0, 1440]];
+    return s.split(/,|;|\set\s/).map(p => {
+      const m = p.match(/(\d{1,2})\s*[:h.]?\s*(\d{2})?\s*[–—-]\s*(\d{1,2})\s*[:h.]?\s*(\d{2})?/);
+      if (!m) return null;
+      const a = m[1] * 60 + (+m[2] || 0);
+      let b = m[3] * 60 + (+m[4] || 0);
+      if (b <= a) b += 1440;
+      return [a, b];
+    }).filter(Boolean).sort((x, y) => x[0] - y[0]);
+  };
+  const now = () => {
+    try {
+      const p = {};
+      new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Paris', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+        .formatToParts(new Date()).forEach(x => { p[x.type] = x.value; });
+      return { day: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday), min: (+p.hour % 24) * 60 + +p.minute };
+    } catch (e) {
+      const t = new Date();
+      return { day: t.getDay(), min: t.getHours() * 60 + t.getMinutes() };
+    }
+  };
+  const fmt = m => { m %= 1440; const h = Math.floor(m / 60), mm = m % 60; return h + 'h' + (mm ? String(mm).padStart(2, '0') : ''); };
+  const status = ({ day, min }) => {
+    const today = parse(week[DAYS[day]]), prev = parse(week[DAYS[(day + 6) % 7]]);
+    for (const [, b] of prev) if (b > 1440 && min < b - 1440) return { open: true, text: `Ouvert maintenant · jusqu'à ${fmt(b)}` };
+    for (const [a, b] of today) {
+      if (min >= a && min < b) return { open: true, text: b - a >= 1440 ? 'Ouvert 24h/24' : `Ouvert maintenant · jusqu'à ${fmt(b)}` };
+    }
+    for (const [a] of today) if (a > min) return { open: false, text: `Fermé · ouvre à ${fmt(a)}` };
+    for (let i = 1; i <= 7; i++) {
+      const key = DAYS[(day + i) % 7], r = parse(week[key]);
+      if (r.length) return { open: false, text: `Fermé · ouvre ${i === 1 ? 'demain' : key} à ${fmt(r[0][0])}` };
+    }
+    return null;
+  };
+  const badges = d.querySelectorAll('[data-open-badge]');
+  const tick = () => {
+    if (!rows.length) return;
+    const t = now(), s = status(t);
+    rows.forEach(r => {
+      const isToday = r.dataset.day === DAYS[t.day];
+      r.classList.toggle('is-today', isToday);
+      const tag = r.querySelector('.today-tag');
+      if (isToday && !tag) r.querySelector('dt').insertAdjacentHTML('beforeend', '<span class="today-tag">Aujourd’hui</span>');
+      if (!isToday && tag) tag.remove();
+    });
+    badges.forEach(b => {
+      if (!s) { b.hidden = true; return; }
+      b.hidden = false;
+      b.classList.toggle('is-open', s.open);
+      b.querySelector('[data-open-text]').textContent = s.text;
+    });
+  };
+  tick(); setInterval(tick, 60000);
+
+  // Review rail controls
+  const rail = d.querySelector('.rail'), prevB = d.querySelector('[data-rail="prev"]'), nextB = d.querySelector('[data-rail="next"]');
+  if (rail && prevB && nextB) {
+    const step = () => { const c = rail.querySelector('.review'); return c ? c.getBoundingClientRect().width + 16 : rail.clientWidth * .8; };
+    const go = dir => rail.scrollBy({ left: dir * step(), behavior: reduce ? 'auto' : 'smooth' });
+    prevB.addEventListener('click', () => go(-1));
+    nextB.addEventListener('click', () => go(1));
+    const upd = () => {
+      prevB.disabled = rail.scrollLeft < 4;
+      nextB.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+    };
+    rail.addEventListener('scroll', upd, { passive: true });
+    addEventListener('resize', upd); upd();
+  }
+
+  // Count-up on the review count
+  const count = el => {
+    const to = +el.dataset.count;
+    if (reduce) { el.textContent = to; return; }
+    const t0 = performance.now(), dur = 1100;
+    const step = t => {
+      const k = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  // Scroll reveals
+  const targets = d.querySelectorAll('[data-reveal], [data-count]');
+  if ('IntersectionObserver' in window) {
+    d.querySelectorAll('[data-count]').forEach(el => { if (!reduce) el.textContent = '0'; });
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      if (e.target.dataset.count) count(e.target); else e.target.classList.add('is-in');
+    }), { rootMargin: '0px 0px -8% 0px', threshold: .12 });
+    targets.forEach(el => io.observe(el));
+  } else {
+    targets.forEach(el => el.classList.add('is-in'));
+  }
+})();
+</script>
+<!--sf:preview--><div style="padding:18px 16px;font:13px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center;background:#0f0f10;color:#a3a3a8">Aperçu réalisé par Aymen Jallouli pour TRAITEUR SULTAN DES SAVEURS : ce site n'est pas encore le site officiel de l'établissement.</div><!--/sf:preview-->
+<!--sf:track--><script>(function(){try{var q=new URLSearchParams(location.search),r=q.get('r')||sessionStorage.getItem('sf_r');if(!r)return;sessionStorage.setItem('sf_r',r);navigator.sendBeacon("https://track.aymenjallouli.dev/t"+'?r='+encodeURIComponent(r)+'&p='+encodeURIComponent(location.pathname));}catch(e){}})();</script><!--/sf:track-->
+</body>
+</html>
